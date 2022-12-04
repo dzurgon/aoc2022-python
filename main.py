@@ -62,3 +62,26 @@ def day3():
 		
 	print("Part 1", score)
 	print("Part 2", score2)
+def day4():
+	i = [int(q) for q in open("d4.txt", "r").read().replace('-','\n').replace(',','\n').split()]
+
+	#part 1
+	score = 0
+	for q in range(0,len(i),4):
+		if (i[q] >= i[q+2] and i[q+3] >= i[q+1]) or (i[q+2] >= i[q] and i[q+1] >= i[q+3]):
+			score += 1
+			
+	#part 2
+	score2 = 0
+	score3 = 0
+	for q in range(0, len(i), 4):
+		if not (i[q+2] > i[q+1] or i[q] > i[q+3]):
+			score2 += 1
+		else: 
+			print(i[q:q+4])
+			score3 += 1
+
+	print("Part 1", score)
+	print("Part 2", score2)
+
+
