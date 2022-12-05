@@ -9,7 +9,6 @@ def day1():
 	lis.sort(reverse=True)
 	print("Sum of greatest:", lis[0])
 	print("Sum of three greatest:", (lis[0]+lis[1]+lis[2]))
-
 def day2():
 	input = open("d2.txt", "r").read().split("\n")
 	score1 = 0
@@ -83,5 +82,56 @@ def day4():
 
 	print("Part 1", score)
 	print("Part 2", score2)
+def day5():
+	# Get input and configure stack/moves
+	input = open("d5.txt", "r").read().split("\n")
+	stack = input[:8]
+	moves = [i.replace("move","").replace("from","").replace("to","").split() for i in input[10:]]
+	
+	arr = []
+	for i in range(1, len(stack[0]), 4):
+		arr.append([])
+		for q in range(len(stack), 0, -1):
+			if stack[q-1][i] != " ":
+				arr[i//4].append(stack[q-1][i])
 
+	
+	# Part 1
+	for i in moves:
+		_amount = int(i[0])
+		_from = int(i[1])-1
+		_to = int(i[2])-1
+	
+		for q in range(_amount):
+			arr[_to].append(arr[_from].pop())
 
+	# Part 1 printout
+	for i in range(len(arr)):
+		print(arr[i][-1], end ="")
+	print()
+	# End of part 1 printout
+
+	# Initialize arr2
+	arr2 = []
+	for i in range(1, len(stack[0]), 4):
+		arr2.append([])
+		for q in range(len(stack), 0, -1):
+			if stack[q-1][i] != " ":
+				arr2[i//4].append(stack[q-1][i])
+
+	# Part 2	
+	for i in moves:
+		_amount = int(i[0])
+		_from = int(i[1])-1
+		_to = int(i[2])-1
+		from_len = len(arr2[_from])
+
+		for q in range(from_len - _amount, from_len):
+			arr2[_to].append(arr2[_from][q])
+			
+		for q in range(_amount):
+			arr2[_from].pop(-1)
+
+	for i in range(len(arr2)):
+		print(arr2[i][-1], end ="")
+	print()	
